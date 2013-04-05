@@ -8,7 +8,7 @@ Hadoop cluster install guide
     * run next commands (as root):
         * ```/usr/sbin/adduser hadoop```  
         * ```/usr/bin/passwd hadoop``` 
-        * ```chown -R hadoop:users [path to hadoop folder]```
+        * ```chown -R hadoop:users $HADOOP_HOME```
         * ```su hadoop```
 3. Generate ssh key for namenode and jobtracker
     * run next commands on namenode and jobtracker node (as hadoop user): 
@@ -30,13 +30,10 @@ Hadoop cluster install guide
     * run next commands (as hadoop user):
         * ```mkdir /home/hadoop/hdfs```
         * ```mkdir /home/hadoop/hdfs/namesecondary```
-    * run next commands (as root user):
-        * ```mkdir /var/log/hadoop```
-        * ```chown -R hadoop:users /var/log/hadoop```
-    * open conf/hadoop-env.sh file and specify ```HADOOP_MASTER``` (this line already exists but commented):
+    * open conf/hadoop-env.sh file and specify ```HADOOP_MASTER``` (skip this step for single node setup):
         * ```export HADOOP_MASTER=<namenode_ip>:${HADOOP_HOME}```
     * run command (as hadoop user):
-        *```$HADOOP_HOME/bin/hadoop namenode -format```
+        * ```$HADOOP_HOME/bin/hadoop namenode -format```
 7. Configure datanode
     * run next commands (as root):
         * ```mkdir /hadoop/hdfs/data```
