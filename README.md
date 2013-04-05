@@ -8,7 +8,7 @@ Hadoop cluster install guide
     * run next commands (as root):
         * ```/usr/sbin/adduser hadoop```  
         * ```/usr/bin/passwd hadoop``` 
-        * ```chown -R hadoop:users $HADOOP_HOME```
+        * ```chown -R hadoop:users [path to hadoop folder]```
         * ```su hadoop```
 3. Generate ssh key for namenode and jobtracker
     * run next commands on namenode and jobtracker node (as hadoop user): 
