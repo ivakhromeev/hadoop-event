@@ -4,18 +4,6 @@
 <configuration>
 
     <property>
-	<name>dfs.hosts</name>
-	<value>/var/spool/hadoop/conf/dfs_hosts</value>
-	<final>true</final>
-    </property>
-
-    <property>
-	<name>mapred.hosts</name>
-	<value>/var/spool/hadoop/conf/dfs_hosts</value>
-	<final>true</final>
-    </property>
-
-    <property>
 	<name>mapred.job.tracker</name>
 	<value>localhost:8021</value>
 	<final>true</final>
