@@ -26,7 +26,7 @@ Hadoop cluster install guide
     * run the same command from jobtracker to add jobtracker node public key to datanodes autorized keys
 5. Copy xmls from app conf folder into $HADOOP_HOME/conf folder (replace all exist files)
 6. Configure namenode
-    * add the hostname or IP address of all datanodes into $HADOOP_HOME/conf/slaves file. One adress per line.
+    * add the hostname or IP address of all datanodes into $HADOOP_HOME/conf/slaves file. One adress per line. (skip this step for single node setup)
     * run next commands (as hadoop user):
         * ```mkdir /home/hadoop/hdfs```
         * ```mkdir /home/hadoop/hdfs/namesecondary```
