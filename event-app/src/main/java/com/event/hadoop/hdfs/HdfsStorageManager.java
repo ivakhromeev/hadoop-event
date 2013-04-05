@@ -1,15 +1,15 @@
 package com.event.hadoop.hdfs;
 
 import com.event.hadoop.StorageManager;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FSInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.io.SequenceFile;
+import org.apache.hadoop.io.compress.DefaultCodec;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HdfsStorageManager implements StorageManager {
@@ -35,7 +35,31 @@ public class HdfsStorageManager implements StorageManager {
     }
 
     @Override
-    public List<String> readFile(String filePath) throws IOException {
+    public void writeIntoFile(String filePath, List<String> textToWrite) throws IOException {
+        FileSystem fs = FileSystem.get(conf);
+        Path file = new Path(filePath);
+
+        try (OutputStream outputStream = fs.append(file)) {
+            for (String line : textToWrite) {
+                outputStream.write(line.getBytes());
+            }
+
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*try (SequenceFile.Writer writer = SequenceFile.createWriter(fs, conf, file,
+                NullWritable.class, Text.class, SequenceFile.CompressionType.NONE, new DefaultCodec()) ) {
+
+            for (String line : textToWrite) {
+                writer.append(NullWritable.get(), new Text(line));
+            }
+        }*/
+    }
+
+    @Override
+    public List<String> readFromFile(String filePath) throws IOException {
         return null; //TODO: implement me
     }
 }

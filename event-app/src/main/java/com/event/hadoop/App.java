@@ -2,9 +2,11 @@ package com.event.hadoop;
 
 import com.event.hadoop.hdfs.HdfsStorageManager;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Hello world App for Hadoop
@@ -15,10 +17,12 @@ public class App {
         Configuration configuration = getConfiguration();
 
         try {
-
             StorageManager hdfsStorage = new HdfsStorageManager(configuration);
 
-            hdfsStorage.saveFile("some_file_on_local_fs", "testFile");
+            hdfsStorage.deleteFolder("folder", true);
+
+            hdfsStorage.saveFile("/home/hadoop/test", "folder/plainTextFile");
+            hdfsStorage.writeIntoFile("folder/seqFile.seq", prepareTestText());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,5 +42,15 @@ public class App {
         System.setProperty("HADOOP_USER_NAME", "hadoop");
 
         return configuration;
+    }
+
+    private static List<String> prepareTestText() {
+        List<String> text = new ArrayList<>();
+
+        text.add("1");
+        text.add("2");
+        text.add("3");
+
+        return Collections.unmodifiableList(text);
     }
 }
