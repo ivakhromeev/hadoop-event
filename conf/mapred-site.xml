@@ -2,8 +2,35 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
+
     <property>
-        <name>mapred.job.tracker</name>
-        <value>localhost:8021</value>
+	<name>dfs.hosts</name>
+	<value>/var/spool/hadoop/conf/dfs_hosts</value>
+	<final>true</final>
     </property>
+
+    <property>
+	<name>mapred.hosts</name>
+	<value>/var/spool/hadoop/conf/dfs_hosts</value>
+	<final>true</final>
+    </property>
+
+    <property>
+	<name>mapred.job.tracker</name>
+	<value>localhost:8021</value>
+	<final>true</final>
+    </property>
+
+    <property>
+	<name>mapred.local.dir</name>
+	<value>/home/hadoop/hadoop_local</value>
+	<final>true</final>
+    </property>
+
+    <property>
+	<name>mapred.system.dir</name>
+	<value>/home/hadoop/hadoop_system</value>
+	<final>true</final>
+    </property>
+
 </configuration>
