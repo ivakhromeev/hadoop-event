@@ -1,15 +1,15 @@
 Hadoop cluster install guide
 ============
 
-1. Prepare environment on all nodes
-    * Install Java and specify ```JAVA_HOME```
-    * Install Hadoop and specify ```HADOOP_HOME```
-2. Create user for hadoop and use it on all nodes
+1. Create user for hadoop and use it on all nodes
     * run next commands (as root):
         * ```/usr/sbin/adduser hadoop```  
         * ```/usr/bin/passwd hadoop``` 
         * ```chown -R hadoop:users $HADOOP_HOME```
         * ```su hadoop```
+2. Prepare environment on all nodes for hadoop user
+    * Install Java and specify ```JAVA_HOME```
+    * Install Hadoop and specify ```HADOOP_HOME```
 3. Generate ssh key for namenode and jobtracker
     * run next commands on namenode and jobtracker node (as hadoop user): 
         * ```ssh-keygen -t rsa```
