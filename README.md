@@ -30,8 +30,9 @@ Hadoop cluster install guide
     * run next commands (as hadoop user):
         * ```mkdir /home/hadoop/hdfs```
         * ```mkdir /home/hadoop/hdfs/namesecondary```
-    * open conf/hadoop-env.sh file and specify ```HADOOP_MASTER``` (skip this step for single node setup):
-        * ```export HADOOP_MASTER=<namenode_ip>:${HADOOP_HOME}```
+    * open conf/hadoop-env.sh file and specify next environment variables:
+        * ```export HADOOP_MASTER=<namenode_ip>:${HADOOP_HOME}``` (skip this step for single node setup)
+        * ```export JAVA_HOME=[path to java folder]``` 
     * run command (as hadoop user):
         * ```$HADOOP_HOME/bin/hadoop namenode -format```
 7. Configure datanode
