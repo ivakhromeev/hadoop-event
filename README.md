@@ -36,7 +36,7 @@ Hadoop cluster install guide
         * ```$HADOOP_HOME/bin/hadoop namenode -format```
 7. Configure datanode
     * run next commands (as root):
-        * ```mkdir /hadoop/hdfs/data```
+        * ```mkdir -p /hadoop/hdfs/data```
         * ```chown -R hadoop:users /hadoop```
     * run next commands (as hadoop user):
         * ```chmod 755 /hadoop/hdfs/data```
