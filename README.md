@@ -1,15 +1,15 @@
 Hadoop cluster install guide
 ============
 
-1. Prepare environment on all nodes
-    * Install Java and specify ```JAVA_HOME```
-    * Install Hadoop and specify ```HADOOP_HOME```
-2. Create user for hadoop and use it on all nodes
+1. Create user for hadoop and use it on all nodes
     * run next commands (as root):
         * ```/usr/sbin/adduser hadoop```  
         * ```/usr/bin/passwd hadoop``` 
-        * ```chown -R hadoop:users [path to hadoop folder]```
+        * ```chown -R hadoop:users $HADOOP_HOME```
         * ```su hadoop```
+2. Prepare environment on all nodes for hadoop user
+    * Install Java and specify ```JAVA_HOME```
+    * Install Hadoop and specify ```HADOOP_HOME```
 3. Generate ssh key for namenode and jobtracker
     * run next commands on namenode and jobtracker node (as hadoop user): 
         * ```ssh-keygen -t rsa```
@@ -26,20 +26,18 @@ Hadoop cluster install guide
     * run the same command from jobtracker to add jobtracker node public key to datanodes autorized keys
 5. Copy xmls from app conf folder into $HADOOP_HOME/conf folder (replace all exist files)
 6. Configure namenode
-    * add the hostname or IP address of all datanodes into $HADOOP_HOME/conf/slaves file. One adress per line.
+    * add the hostname or IP address of all datanodes into $HADOOP_HOME/conf/slaves file. One adress per line. (skip this step for single node setup)
     * run next commands (as hadoop user):
         * ```mkdir /home/hadoop/hdfs```
         * ```mkdir /home/hadoop/hdfs/namesecondary```
-    * run next commands (as root user):
-        * ```mkdir /var/log/hadoop```
-        * ```chown -R hadoop:users /var/log/hadoop```
-    * open conf/hadoop-env.sh file and specify ```HADOOP_MASTER``` (this line already exists but commented):
-        * ```export HADOOP_MASTER=<namenode_ip>:${HADOOP_HOME}```
+    * open conf/hadoop-env.sh file and specify next environment variables:
+        * ```export HADOOP_MASTER=<namenode_ip>:${HADOOP_HOME}``` (skip this step for single node setup)
+        * ```export JAVA_HOME=[path to java folder]``` 
     * run command (as hadoop user):
-        *```$HADOOP_HOME/bin/hadoop namenode -format```
+        * ```$HADOOP_HOME/bin/hadoop namenode -format```
 7. Configure datanode
     * run next commands (as root):
-        * ```mkdir /hadoop/hdfs/data```
+        * ```mkdir -p /hadoop/hdfs/data```
         * ```chown -R hadoop:users /hadoop```
     * run next commands (as hadoop user):
         * ```chmod 755 /hadoop/hdfs/data```
