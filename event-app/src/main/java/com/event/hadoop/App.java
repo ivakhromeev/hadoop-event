@@ -55,7 +55,7 @@ public class App {
         configuration.set("mapred.local.dir", "/home/hadoop/hadoop_local/");
         configuration.set("mapred.job.tracker","localhost:8021");
 
-        System.setProperty("HADOOP_USER_NAME", "hduser");
+        System.setProperty("HADOOP_USER_NAME", "hadoop");
 
         return configuration;
     }
