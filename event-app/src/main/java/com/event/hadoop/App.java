@@ -1,6 +1,9 @@
 package com.event.hadoop;
 
 import com.event.hadoop.hdfs.HdfsStorageManager;
+import com.event.hadoop.mr.BaseMapReduceRunner;
+import com.event.hadoop.mr.WordCountMapper;
+import com.event.hadoop.mr.WordCountReducer;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;
@@ -17,16 +20,30 @@ public class App {
         Configuration configuration = getConfiguration();
 
         try {
-            StorageManager hdfsStorage = new HdfsStorageManager(configuration);
 
-            hdfsStorage.deleteFolder("folder", true);
+            //testIO(configuration);
 
-            hdfsStorage.saveFile("/home/hadoop/test", "folder/plainTextFile");
-            hdfsStorage.writeIntoFile("folder/seqFile.seq", prepareTestText());
+            testMR(configuration);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void testIO(Configuration configuration) throws IOException {
+        StorageManager hdfsStorage = new HdfsStorageManager(configuration);
+
+        hdfsStorage.deleteFolder("folder", true);
+
+        hdfsStorage.saveFile("/home/hadoop/test", "folder/plainTextFile");
+        hdfsStorage.writeIntoFile("folder/seqFile.seq", prepareTestText());
+    }
+
+    private static void testMR(Configuration configuration) throws Exception {
+        MapReduceRunner runner = new BaseMapReduceRunner(configuration);
+        runner.run(WordCountMapper.class, WordCountReducer.class, Collections.singletonList("folder/plainTextFile"));
+
+        //TODO: read results
     }
 
     private static Configuration getConfiguration() {
@@ -35,7 +52,7 @@ public class App {
         configuration.set("fs.default.name", "hdfs://localhost:8020");
         configuration.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         configuration.set("fs.file.impl", "org.apache.hadoop.fs.LocalFileSystem");
-        configuration.set("mapred.local.dir", "${HOME}/hadoop_local/");
+        configuration.set("mapred.local.dir", "/home/hadoop/hadoop_local/");
         configuration.set("hadoop.user.name", "hadoop");
         configuration.set("mapred.job.tracker","localhost:8021");
 
