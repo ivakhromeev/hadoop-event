@@ -60,3 +60,7 @@ Hadoop cluster install guide
         * ```$HADOOP_HOME/bin/start-mapred.sh```  
     * run from namenode for single node setup (run from hadoop user)
         * ```$HADOOP_HOME/bin/start-all.sh```
+
+
+-----------------------------------
+Link to download test data: ```https://www.dropbox.com/s/30ev33ezecc3lid/logs.tar.gz```
