@@ -21,9 +21,9 @@ public class App {
 
         try {
 
-            //testIO(configuration);
+            testIO(configuration);
 
-            testMR(configuration);
+            //testMR(configuration);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class App {
         hdfsStorage.deleteFolder("folder", true);
 
         hdfsStorage.saveFile("/home/hadoop/test", "folder/plainTextFile");
-        hdfsStorage.writeIntoFile("folder/seqFile.seq", prepareTestText());
+        //hdfsStorage.writeIntoFile("folder/seqFile.seq", prepareTestText());
     }
 
     private static void testMR(Configuration configuration) throws Exception {
@@ -53,10 +53,9 @@ public class App {
         configuration.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         configuration.set("fs.file.impl", "org.apache.hadoop.fs.LocalFileSystem");
         configuration.set("mapred.local.dir", "/home/hadoop/hadoop_local/");
-        configuration.set("hadoop.user.name", "hadoop");
         configuration.set("mapred.job.tracker","localhost:8021");
 
-        System.setProperty("HADOOP_USER_NAME", "hadoop");
+        System.setProperty("HADOOP_USER_NAME", "hduser");
 
         return configuration;
     }
